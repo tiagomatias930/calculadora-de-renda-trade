@@ -1,0 +1,120 @@
+
+
+# Calculadora de Renda - Placa Curiosa
+
+Uma calculadora moderna e responsiva para calcular renda usando diferentes fórmulas de investimento, com suporte a modo dark e interface intuitiva.
+
+## 🚀 Funcionalidades
+
+- **Cálculo de renda** com múltiplas fórmulas pré-definidas
+- **Interface moderna** com design em três colunas (Inputs, Fórmulas, Resultados)
+- **Modo dark** integrado para melhor experiência visual
+- **Valores em dólares** com formatação automática
+- **Design responsivo** que se adapta a diferentes tamanhos de tela
+- **Seleção visual** de fórmulas com cards interativos
+
+## 📋 Fórmulas Disponíveis
+
+1. **Maestro** - 34% de retorno
+   - Fórmula: VI × 0.34 × N
+
+2. **Primier Sniper + Kumbo + Alfa + Mega + Nebra** - 84% de retorno
+   - Fórmula: VI × 0.84 × N
+
+3. **Coringa Cash + CyberBot + Monarca** - 5% de retorno
+   - Fórmula: VI × 0.05 × N
+
+## 💻 Como Usar
+
+1. **Faça o download** do arquivo HTML
+2. **Abra o arquivo** em qualquer navegador moderno (Chrome, Firefox, Edge, etc.)
+3. **Preencha os campos**:
+   - Número de entradas (N)
+   - Valor de investimento (VI) em USD
+4. **Selecione uma fórmula** clicando nos cards disponíveis
+5. **Clique em "Calcular Renda"** para ver o resultado
+
+### 🌓 Modo Dark
+
+- Clique no ícone de lua/sol no canto superior direito para alternar entre os modos claro e escuro
+- A preferência é salva automaticamente no seu navegador
+
+## 📱 Responsividade
+
+O layout se adapta automaticamente a diferentes tamanhos de tela:
+- **Desktop**: 3 colunas
+- **Tablet**: 2 colunas
+- **Celular**: 1 coluna empilhada
+
+## 🛠 Tecnologias Utilizadas
+
+- **HTML5** - Estrutura semântica
+- **CSS3** - Estilização com variáveis CSS e transições
+- **JavaScript** - Lógica de cálculo e interatividade
+- **Responsive Design** - Media queries para adaptação a diferentes dispositivos
+
+## 📊 Estrutura do Projeto
+
+```
+├── index.html          # Arquivo principal da aplicação
+└── README.md           # Este arquivo de documentação
+```
+
+## 🎨 Design
+
+- **Layout em grid** com três seções principais
+- **Cards arredondados** com sombras suaves
+- **Cores personalizáveis** através de variáveis CSS
+- **Transições suaves** para melhor experiência do usuário
+- **Ícones intuitivos** para navegação
+
+## 🔧 Personalização
+
+### Alterar Fórmulas
+
+Para adicionar ou modificar fórmulas, edite os cards na seção "Formulas":
+
+```html
+<div class="formula-card" data-formula="nome-da-formula" data-rate="0.xx">
+    <h3>Nome da Fórmula</h3>
+    <div class="percentage">xx%</div>
+    <div class="formula">VI × 0.xx × N</div>
+</div>
+```
+
+### Alterar Cores
+
+Modifique as variáveis CSS no início do arquivo:
+
+```css
+:root {
+    --button-bg: #3498db;    /* Cor do botão */
+    --result-text: #27ae60;   /* Cor do resultado */
+    /* ... outras variáveis */
+}
+```
+
+## 📝 Notas
+
+- O projeto funciona inteiramente no lado do cliente (client-side)
+- Não requer conexão com internet após o carregamento inicial
+- Todos os cálculos são realizados localmente no navegador
+- A formatação de moeda segue o padrão americano (USD)
+
+## 🤝 Contribuição
+
+Contribuições são bem-vindas! Sinta-se à vontade para:
+
+1. Fazer um fork do projeto
+2. Criar uma branch para sua feature (`git checkout -b feature/nova-funcionalidade`)
+3. Commit suas mudanças (`git commit -am 'Adiciona nova funcionalidade'`)
+4. Push para a branch (`git push origin feature/nova-funcionalidade`)
+5. Abrir um Pull Request
+
+## 📄 Licença
+
+Este projeto está sob a Licença MIT - veja o arquivo [LICENSE](LICENSE) para detalhes.
+
+---
+
+**Desenvolvido com ❤️ para cálculos de investimento**
