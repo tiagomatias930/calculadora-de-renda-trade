@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Renda - Placa Curiosa</title>
+    <style>
+        :root {
+            --bg-color: #1a1a1a;
+            --container-bg: #2d2d2d;
+            --text-color: #ecf0f1;
+            --label-color: #bdc3c7;
+            --input-bg: #3a3a3a;
+            --input-border: #555;
+            --button-bg: #2980b9;
+            --button-hover: #3498db;
+            --result-bg: #34495e;
+            --result-border: #3498db;
+            --result-text: #2ecc71;
+            --shadow: rgba(0,0,0,0.3);
+            --card-bg: #34495e;
+            --card-border: #555;
+            --section-bg: #2c2c2c;
+            --section-border: #444;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            transition: background-color 0.3s, color 0.3s;
+        }
+        /* *{
+            top: 0;
+            align-items: center;
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        } */
+
+        .header {
+            text-align: center;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            color: var(--text-color);
+            font-size: 2rem;
+            font-weight: 600;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .grid-item {
+            background: var(--section-bg);
+            border: 1px solid var(--section-border);
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 4px 12px var(--shadow);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .grid-item h2 {
+            margin-top: 0;
+            margin-bottom: 20px;
+            color: var(--text-color);
+            font-size: 1.5rem;
+            font-weight: 600;
+            border-bottom: 2px solid var(--button-bg);
+            padding-bottom: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--label-color);
+        }
+
+        input, select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--input-border);
+            border-radius: 8px;
+            font-size: 16px;
+            box-sizing: border-box;
+            background-color: var(--input-bg);
+            color: var(--text-color);
+            transition: background-color 0.3s, border-color 0.3s, color 0.3s;
+        }
+
+        button {
+            background-color: var(--button-bg);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            font-size: 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 100%;
+            transition: background-color 0.3s;
+            font-weight: 500;
+        }
+
+        button:hover {
+            background-color: var(--button-hover);
+        }
+
+        .formula-cards {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+        }
+
+        .formula-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .formula-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px var(--shadow);
+        }
+
+        .formula-card.selected {
+            border: 2px solid var(--button-bg);
+            background-color: var(--result-bg);
+        }
+
+        .formula-card h3 {
+            margin-top: 0;
+            color: var(--text-color);
+            font-size: 1.1rem;
+        }
+
+        .formula-card .percentage {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--button-bg);
+            margin: 10px 0;
+        }
+
+        .formula-card .formula {
+            font-family: monospace;
+            background-color: var(--input-bg);
+            padding: 8px;
+            border-radius: 4px;
+            margin-top: 10px;
+            font-size: 14px;
+        }
+
+        .selected-formula {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: var(--result-bg);
+            border-radius: 8px;
+            border-left: 4px solid var(--button-bg);
+            display: none;
+        }
+
+        .selected-formula h3 {
+            margin-top: 0;
+            color: var(--text-color);
+        }
+
+        .result-display {
+            text-align: center;
+            padding: 20px;
+            background-color: var(--result-bg);
+            border-radius: 8px;
+            border-left: 4px solid var(--result-border);
+            display: none;
+        }
+
+        .result-display h2 {
+            margin-top: 0;
+            color: var(--text-color);
+        }
+
+        .result-value {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--result-text);
+            margin: 15px 0;
+        }
+
+        .result-currency {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            color: var(--text-color);
+        }
+
+        .result-details {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            font-size: 0.9rem;
+        }
+
+        .result-details p {
+            margin: 5px 0;
+        }
+
+        @media (max-width: 992px) {
+            .grid-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .grid-container {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 1.5rem;
+            }
+            
+            .result-value {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Calculadora de Renda - Placa Curiosa</h1>
+    </div>
+    
+    <div class="grid-container">
+        <div class="grid-item">
+            <h2>Inputs</h2>
+            <div class="form-group">
+                <label for="n">Número de entradas (N):</label>
+                <input type="number" id="n" min="1" step="1" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="vi">Valor de investimento (VI) em USD:</label>
+                <input type="number" id="vi" min="0" step="0.01" required>
+            </div>
+            
+            <button onclick="calcularRenda()">Calcular Renda</button>
+                        <div class="selected-formula" id="selectedFormula">
+                <h3>Fórmula selecionada: <span id="formulaName"></span></h3>
+                <p>Taxa: <span id="formulaRate"></span></p>
+            </div>
+        </div>
+        
+        <div class="grid-item">
+            <h2>Formulas</h2>
+            <div class="formula-cards">
+                <div class="formula-card" data-formula="placa" data-rate="0.34">
+                    <h3>Maestro</h3>
+                    <div class="percentage">34%</div>
+                    <div class="formula">VI × 0.34 × N</div>
+                </div>
+                <div class="formula-card" data-formula="placa3" data-rate="0.84">
+                    <h3>Primier Sniper + Kumbo + Alfa + Mega + Nebra</h3>
+                    <div class="percentage">84%</div>
+                    <div class="formula">VI × 0.84 × N</div>
+                </div>
+                <div class="formula-card" data-formula="placa4" data-rate="0.05">
+                    <h3>Coringa Cash + CyberBot + Monarca</h3>
+                    <div class="percentage">5%</div>
+                    <div class="formula">VI × 0.05 × N</div>
+                </div>
+            </div>
+            
+        </div>
+        
+        <div class="grid-item">
+            <h2>Result</h2>
+            <div class="result-display" id="resultado">
+                <h2>Resultado do Cálculo</h2>
+                <div class="result-currency" id="resultCurrency">Moeda: Dólar ($)</div>
+                <div class="result-value" id="rendaFinal">$ 0.00</div>
+                <div class="result-details">
+                    <p><strong>Fórmula:</strong> <span id="resultFormula"></span></p>
+                    <p><strong>Taxa:</strong> <span id="resultRate"></span></p>
+                    <p><strong>Número de entradas:</strong> <span id="resultN"></span></p>
+                    <p><strong>Valor de investimento:</strong> <span id="resultVI"></span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let selectedFormula = null;
+        let selectedRate = null;
+
+        // Função para formatar moeda em dólares
+        function formatCurrency(value) {
+            return value.toLocaleString('en-US', {
+                style: 'currency',
+                currency: 'USD',
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+            });
+        }
+
+        // Função para calcular a renda
+        function calcularRenda() {
+            // Obter valores dos campos
+            const n = parseFloat(document.getElementById('n').value);
+            const vi = parseFloat(document.getElementById('vi').value);
+            
+            // Validar entradas
+            if (isNaN(n) || isNaN(vi) || n <= 0 || vi < 0) {
+                alert('Por favor, insira valores válidos!');
+                return;
+            }
+            
+            // Verificar se uma fórmula foi selecionada
+            if (!selectedFormula || !selectedRate) {
+                alert('Por favor, selecione uma fórmula de cálculo!');
+                return;
+            }
+            
+            // Calcular renda usando a fórmula selecionada
+            const renda = vi * selectedRate * n;
+            
+            // Formatar resultado para 2 casas decimais
+            const rendaFormatada = formatCurrency(renda);
+            
+            // Obter informações da fórmula selecionada
+            const formulaCard = document.querySelector(`.formula-card[data-formula="${selectedFormula}"]`);
+            const formulaName = formulaCard.querySelector('h3').textContent;
+            const formulaRate = formulaCard.querySelector('.percentage').textContent;
+            
+            // Exibir resultado
+            document.getElementById('rendaFinal').textContent = rendaFormatada;
+            document.getElementById('resultFormula').textContent = formulaName;
+            document.getElementById('resultRate').textContent = formulaRate;
+            document.getElementById('resultN').textContent = n;
+            document.getElementById('resultVI').textContent = formatCurrency(vi);
+            
+            document.getElementById('resultado').style.display = 'block';
+        }
+
+        // Função para selecionar uma fórmula
+        function selectFormula(card) {
+            // Remove a classe 'selected' de todos os cards
+            document.querySelectorAll('.formula-card').forEach(c => {
+                c.classList.remove('selected');
+            });
+            
+            // Adiciona a classe 'selected' ao card clicado
+            card.classList.add('selected');
+            
+            // Armazena a fórmula e a taxa selecionadas
+            selectedFormula = card.getAttribute('data-formula');
+            selectedRate = parseFloat(card.getAttribute('data-rate'));
+            
+            // Exibe a fórmula selecionada
+            const formulaName = card.querySelector('h3').textContent;
+            const formulaRate = card.querySelector('.percentage').textContent;
+            
+            document.getElementById('formulaName').textContent = formulaName;
+            document.getElementById('formulaRate').textContent = formulaRate;
+            document.getElementById('selectedFormula').style.display = 'block';
+        }
+        // Adiciona eventos aos cards de fórmula
+        document.querySelectorAll('.formula-card').forEach(card => {
+            card.addEventListener('click', () => selectFormula(card));
+        });
+
+        // Carrega o tema ao iniciar a página
+        document.addEventListener('DOMContentLoaded', loadTheme);
+    </script>
+</body>
+</html>
